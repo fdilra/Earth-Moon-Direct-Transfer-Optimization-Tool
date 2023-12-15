@@ -14,6 +14,8 @@ To run this script the following kernels are required:
 
 The kernels can be downloaded at https://naif.jpl.nasa.gov/pub/naif/generic_kernels/ and have to be stored in a folder named \kernels that has to be in the same directory as the script and all the functions.
 
+![untitled](https://github.com/fdilra/Earth-Moon-Direct-Transfer-Optimization-Tool/assets/153423123/c57fed7b-4728-4f1b-bc22-560d3877d522)
+
 ## Model
 
 The current model used by the script is a Sun-Earth-Moon-spacecraft four-body problem model that considers only point-mass gravity.
