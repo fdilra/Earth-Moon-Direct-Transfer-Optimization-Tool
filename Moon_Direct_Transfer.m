@@ -14,7 +14,7 @@ cspice_furnsh( 'metakr.tm' );
 %--------------------------------------------------------------------------
 %%% INITIAL GUESS & USER-DEFINED PARAMETERS %%%
 % Launch date in UTC
-timstr = '2024 23 JUN 12:00:00';  
+timstr = '2024 31 AUG 12:00:00';  
 % Spacecraft mass
 mass_sc = 1000; %[kg]
 
@@ -67,7 +67,7 @@ ub = [0.999, pi/2, 2*pi, 2*pi, t0 + 2*24*3600];
 options = optimoptions("fmincon",...
     "Algorithm","active-set",...
     'Display','iter',...
-    "FunctionTolerance",1e-05,...
+    "FunctionTolerance",1e-06,...
     "ConstraintTolerance",1e-16,...
     "MaxFunctionEvaluations",1000);
 
@@ -91,22 +91,15 @@ end
 
 
 % Target distance
-fprintf('\nTargeting distance...')
+fprintf('\nTargeting...')
 target_switch = 1;
 [S0_opt, ~] = ...
     fmincon(@cost,S0,[],[],[],[],lb,ub,@constraints,options);
 fprintf('Lunar orbit radius: %.2f km\n', dist_moon_min - 1737)
 fprintf('Lunar orbit inclination: %.2f rad\n',inclination_clos_app)
-% Target inclination
-fprintf('Targeting inclination...')
-target_switch = 2;
-[S0_opt, ~] = ...
-    fmincon(@cost,S0_opt,[],[],[],[],lb,ub,@constraints,options);
-fprintf('Lunar orbit radius: %.2f km\n', dist_moon_min - 1737)
-fprintf('Lunar orbit inclination: %.2f rad\n',inclination_clos_app)
 % Optimization
 fprintf('Optimizing Delta V...')
-target_switch = 3;
+target_switch = 2;
 [S0_opt, DV_opt] = ...
     fmincon(@cost,S0_opt,[],[],[],[],lb,ub,@constraints,options);
 
@@ -153,7 +146,7 @@ fprintf('Time of Flight: %.2f days\n', ToF)
 fprintf('Elapsed time: %.2f minutes\n', elapsedTime)
 fprintf('Lunar orbit height: %.2f km\n', ...
     norm(x_sc(end,1:3)-x_m(end,1:3)) - 1737)
-fprintf('Lunar orbit inclination: %.4f rad\n',inclination_clos_app)
+fprintf('Lunar orbit inclination: %.2f deg\n',rad2deg(inclination_clos_app))
 
 % Unload kernels
 cspice_kclear

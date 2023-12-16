@@ -35,11 +35,9 @@ inclination_clos_app = oe_closest_app(3);
 %%% COST FUNCTION %%%
 if target_switch==1
     % Cost distance
-    cost = abs(dist_moon_min - rad_arr);
+    cost = abs(dist_moon_min - rad_arr)/1000 + ...
+        abs(inclination_clos_app - inc_arr);
 elseif target_switch==2
-    % Cost inclination
-    cost = abs(inclination_clos_app - inc_arr);
-elseif target_switch==3
     DV1 = abs(norm(xsol1(1,13:15)) - sqrt(GM(4)/DEP_oe(1)));
     DV2 = norm(xsol1(ind_dist_min,13:15) - ...
         xsol1(ind_dist_min,19:21)) - sqrt(GM(3)/dist_moon_min);
