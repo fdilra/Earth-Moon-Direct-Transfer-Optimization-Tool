@@ -18,11 +18,13 @@ The kernels can be downloaded at https://naif.jpl.nasa.gov/pub/naif/generic_kern
 
 ## Model
 
-The current model used by the script is a Sun-Earth-Moon-spacecraft four-body problem model that considers only point-mass gravity.
+Using the n-body problem equations, the force model computes the gravitational forces (only point mass gravity) exerted by the Sun, Moon, and Earth on the spacecraft. The positions of the celestial bodies are obtained from the de440.bsp kernel using the function cspice_spkezr(). The function ode45() is used for propagating the spacecraft trajectory.
 
 ## Future Improvements
 
-Future improvements will include an improved model with:
+Future improvements will include:
 - higher order gravity perturbations
 - solar radiation pressure
-- higher precision
+- performance improvements
+
+
